@@ -1,48 +1,44 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 const PassiveSkills = () => {
   const passives = [
     {
       title: "Дисциплина древнего суда",
-      icon: "⚖️",
       description:
-        "Когда Нёвилетт в команде, при получении кристаллизации увеличивает Мастерство стихий всех членов команды.",
+        "Когда Нёвилетт в команде, при получении кристаллизации увеличивает Мастерство стихий всех членов команды на 60 ед. на 15 сек.",
+      color: "bg-blue-600",
     },
     {
       title: "Дисциплина высшего суда",
-      icon: "🌊",
       description:
-        "За каждые 1% сверх 100% сопротивления прерыванию Нёвилетт получает 0,6% бонуса к урону Гидро.",
+        "За каждые 1% сверх 100% сопротивления прерыванию Нёвилетт получает 0,6% бонуса к урону Гидро. Максимум 30%.",
+      color: "bg-purple-600",
     },
     {
       title: "Соблазн древнего закона",
-      icon: "💎",
       description:
-        "При создании оружия в кузнице есть 10% шанс получить в 2 раза больше продукции.",
+        "При создании оружия в кузнице есть 10% шанс получить в 2 раза больше продукции. (Пассивка исследования)",
+      color: "bg-green-600",
     },
   ];
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-white">Пассивки</h2>
-      <div className="grid gap-4">
+      <div className="bg-lime-400 text-black px-4 py-2 rounded font-bold text-center">
+        Пассивки
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-4">
         {passives.map((passive, index) => (
-          <Card
-            key={index}
-            className="bg-gradient-to-r from-purple-900/20 to-blue-900/20 border-purple-500/30"
-          >
-            <CardHeader className="pb-3">
-              <CardTitle className="text-purple-300 text-lg flex items-center gap-3">
-                <span className="text-2xl">{passive.icon}</span>
-                {passive.title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                {passive.description}
-              </p>
-            </CardContent>
-          </Card>
+          <div key={index} className="bg-gray-800 rounded-lg p-4">
+            <div
+              className={`${passive.color} text-white px-3 py-1 rounded text-sm font-semibold mb-3 inline-block`}
+            >
+              Пассивка {index + 1}
+            </div>
+            <h4 className="text-white font-semibold mb-2">{passive.title}</h4>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              {passive.description}
+            </p>
+          </div>
         ))}
       </div>
     </div>

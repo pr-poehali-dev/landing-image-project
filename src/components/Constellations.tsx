@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const Constellations = () => {
@@ -13,43 +12,40 @@ const Constellations = () => {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-bold text-white">Созвездия</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="bg-lime-400 text-black px-4 py-2 rounded font-bold text-center">
+        Созвездия
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {constellations.map((const_, index) => (
-          <Card
+          <div
             key={index}
-            className={`transition-all duration-300 ${
+            className={`rounded-lg p-3 border-2 ${
               const_.unlocked
-                ? "bg-gradient-to-br from-yellow-900/30 to-orange-900/30 border-yellow-500/50"
-                : "bg-slate-800/50 border-slate-600/30"
+                ? "bg-yellow-900/30 border-yellow-500"
+                : "bg-gray-800 border-gray-600"
             }`}
           >
-            <CardHeader className="pb-2">
-              <div className="flex items-center justify-between">
-                <Badge
-                  className={`text-lg font-bold ${
-                    const_.unlocked
-                      ? "bg-yellow-500 text-black"
-                      : "bg-slate-600 text-gray-300"
-                  }`}
-                >
-                  {const_.level}
-                </Badge>
-                {const_.unlocked && (
-                  <span className="text-yellow-400 text-xl">⭐</span>
-                )}
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p
-                className={`text-sm font-medium ${
-                  const_.unlocked ? "text-yellow-200" : "text-gray-400"
+            <div className="flex items-center justify-between mb-2">
+              <Badge
+                className={`font-bold ${
+                  const_.unlocked
+                    ? "bg-yellow-500 text-black"
+                    : "bg-gray-600 text-gray-300"
                 }`}
               >
-                {const_.name}
-              </p>
-            </CardContent>
-          </Card>
+                {const_.level}
+              </Badge>
+              {const_.unlocked && <span className="text-yellow-400">⭐</span>}
+            </div>
+            <p
+              className={`text-sm font-medium ${
+                const_.unlocked ? "text-yellow-200" : "text-gray-400"
+              }`}
+            >
+              {const_.name}
+            </p>
+          </div>
         ))}
       </div>
     </div>

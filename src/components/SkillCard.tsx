@@ -1,9 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 interface SkillCardProps {
   title: string;
   type: "normal" | "skill" | "burst";
+  key: string;
+  subtitle: string;
   description: string;
   details: string[];
   color: string;
@@ -12,61 +13,65 @@ interface SkillCardProps {
 const SkillCard = ({
   title,
   type,
+  key: keyBind,
+  subtitle,
   description,
   details,
   color,
 }: SkillCardProps) => {
-  const getTypeIcon = () => {
+  const getImage = () => {
     switch (type) {
       case "normal":
-        return "🗡️";
+        return "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=200&h=150&fit=crop";
       case "skill":
-        return "⚡";
+        return "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=200&h=150&fit=crop";
       case "burst":
-        return "💥";
+        return "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=200&h=150&fit=crop";
       default:
-        return "📖";
-    }
-  };
-
-  const getTypeLabel = () => {
-    switch (type) {
-      case "normal":
-        return "Обычная атака";
-      case "skill":
-        return "Элементальный навык";
-      case "burst":
-        return "Взрыв стихии";
-      default:
-        return "Способность";
+        return "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=200&h=150&fit=crop";
     }
   };
 
   return (
-    <Card className="bg-slate-800 border-slate-700 hover:border-purple-500 transition-all duration-300">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-white text-lg flex items-center gap-2">
-            <span className="text-2xl">{getTypeIcon()}</span>
-            {title}
-          </CardTitle>
-          <Badge className={`${color} text-black font-semibold`}>
-            {getTypeLabel()}
+    <div className="bg-gray-800 rounded-lg overflow-hidden">
+      <div className="flex">
+        {/* Левая часть с заголовком */}
+        <div className="bg-gray-900 px-4 py-3 flex items-center justify-between min-w-[200px]">
+          <h3 className="text-white font-bold">{title}</h3>
+          <Badge className={`${color} text-black font-bold text-lg px-3 py-1`}>
+            {keyBind}
           </Badge>
         </div>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-gray-300 text-sm leading-relaxed">{description}</p>
-        <div className="space-y-2">
-          {details.map((detail, index) => (
-            <div key={index} className="flex items-start gap-2 text-sm">
-              <span className="text-blue-400 mt-1">•</span>
-              <span className="text-gray-300">{detail}</span>
-            </div>
-          ))}
+
+        {/* Правая часть с подзаголовком */}
+        <div className="bg-gray-700 px-4 py-3 flex-1">
+          <h4 className="text-white font-semibold">{subtitle}</h4>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      <div className="p-4 flex gap-4">
+        {/* Изображение навыка */}
+        <div className="flex-shrink-0">
+          <img
+            src={getImage()}
+            alt={subtitle}
+            className="w-32 h-24 object-cover rounded"
+          />
+        </div>
+
+        {/* Описание и детали */}
+        <div className="flex-1 space-y-3">
+          <p className="text-gray-300 text-sm leading-relaxed">{description}</p>
+          <div className="space-y-1">
+            {details.map((detail, index) => (
+              <div key={index} className="text-blue-300 text-sm">
+                • {detail}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

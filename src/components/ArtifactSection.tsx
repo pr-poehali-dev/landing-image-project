@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const ArtifactSection = () => {
@@ -7,114 +6,116 @@ const ArtifactSection = () => {
       name: "Странник-труппа",
       pieces: "4",
       main: "Мастерство стихий",
-      description: "Увеличивает урон заряженной атаки на 35%",
-      priority: "Лучший",
+      description:
+        "Увеличивает урон заряженной атаки на 35% если персонаж использует катализатор или лук",
+      priority: "Рекомендовано",
+      color: "bg-purple-600",
     },
     {
       name: "Позолоченные сны",
       pieces: "4",
       main: "Мастерство стихий",
-      description: "Повышает Мастерство стихий команды",
-      priority: "Хороший",
-    },
-    {
-      name: "Изумрудная тень",
-      pieces: "4",
-      main: "Бонус Гидро урона",
-      description: "Увеличивает урон Гидро на 20%",
+      description: "Повышает Мастерство стихий команды на 80 ед. при реакциях",
       priority: "Альтернатива",
+      color: "bg-blue-600",
     },
   ];
 
   const stats = [
-    { stat: "АТК%", priority: "высокий", value: "46.6%" },
-    { stat: "Гидро урон", priority: "высокий", value: "46.6%" },
-    { stat: "Крит урон", priority: "средний", value: "62.2%" },
-    { stat: "Крит шанс", priority: "средний", value: "31.1%" },
+    { stat: "АТК%", value: "2311", priority: "high" },
+    { stat: "Мастерство Стихий", value: "187", priority: "high" },
+    { stat: "Крит. Урон", value: "88%", priority: "medium" },
+    { stat: "Крит. Шанс", value: "85%", priority: "medium" },
+  ];
+
+  const artifactPieces = [
+    { slot: "Цветок", stat: "HP", icon: "🌸" },
+    { slot: "Перо", stat: "АТК", icon: "🪶" },
+    { slot: "Песочные часы", stat: "АТК%", icon: "⏳" },
+    { slot: "Кубок", stat: "Гидро урон", icon: "🏺" },
+    { slot: "Корона", stat: "Крит урон", icon: "👑" },
   ];
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-white">Артефакты</h2>
+    <div className="space-y-4">
+      <div className="bg-lime-400 text-black px-4 py-2 rounded font-bold text-center">
+        Артефакты
+      </div>
 
-      <div className="grid gap-4">
+      {/* Рекомендуемые сеты */}
+      <div className="space-y-3">
         {artifacts.map((artifact, index) => (
-          <Card
-            key={index}
-            className="bg-slate-800 border-slate-700 hover:border-purple-500/50 transition-all"
-          >
-            <CardHeader className="pb-3">
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-purple-300 flex items-center gap-2">
-                  <span className="text-2xl">🏺</span>
-                  {artifact.name}
-                </CardTitle>
-                <div className="flex gap-2">
-                  <Badge
-                    variant="outline"
-                    className="text-blue-300 border-blue-300"
-                  >
+          <div key={index} className="bg-gray-800 rounded-lg p-4">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                🏺
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <h4 className="text-white font-semibold">{artifact.name}</h4>
+                  <Badge className={`${artifact.color} text-white`}>
                     {artifact.pieces} части
                   </Badge>
-                  <Badge
-                    className={
-                      artifact.priority === "Лучший"
-                        ? "bg-yellow-500 text-black"
-                        : artifact.priority === "Хороший"
-                          ? "bg-green-500 text-black"
-                          : "bg-gray-500 text-white"
-                    }
-                  >
-                    {artifact.priority}
-                  </Badge>
                 </div>
+                <Badge
+                  className={
+                    artifact.priority === "Рекомендовано"
+                      ? "bg-green-500"
+                      : "bg-gray-500"
+                  }
+                >
+                  {artifact.priority}
+                </Badge>
               </div>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-300 text-sm mb-2">
-                <span className="text-blue-300 font-medium">
-                  Основная характеристика:
-                </span>{" "}
-                {artifact.main}
-              </p>
-              <p className="text-gray-300 text-sm">{artifact.description}</p>
-            </CardContent>
-          </Card>
+            </div>
+            <p className="text-gray-300 text-sm">{artifact.description}</p>
+          </div>
         ))}
       </div>
 
-      <Card className="bg-gradient-to-r from-blue-900/30 to-purple-900/30 border-blue-500/30">
-        <CardHeader>
-          <CardTitle className="text-blue-300">
-            📊 Приоритет прокачки характеристик
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-3">
+      {/* Статистики и слоты артефактов */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Рекомендуемые статы */}
+        <div className="bg-purple-600 rounded-lg p-4">
+          <h3 className="text-white font-bold mb-3 text-center">
+            Рекомендуемые статы
+          </h3>
+          <div className="space-y-2">
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="flex justify-between items-center p-2 bg-slate-800/50 rounded"
+                className="flex justify-between items-center text-white"
               >
-                <span className="text-gray-300">{stat.stat}</span>
-                <div className="flex items-center gap-2">
-                  <span className="text-blue-300 text-sm">{stat.value}</span>
-                  <Badge
-                    size="sm"
-                    className={
-                      stat.priority === "высокий"
-                        ? "bg-red-500 text-white"
-                        : "bg-yellow-500 text-black"
-                    }
-                  >
-                    {stat.priority}
-                  </Badge>
+                <span className="text-sm">{stat.stat}</span>
+                <span className="font-bold">{stat.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Слоты артефактов */}
+        <div>
+          <h3 className="text-white font-bold mb-3">
+            Слоты артефактов и основные статы
+          </h3>
+          <div className="space-y-2">
+            {artifactPieces.map((piece, index) => (
+              <div
+                key={index}
+                className="bg-gray-800 rounded p-3 flex items-center gap-3"
+              >
+                <span className="text-xl">{piece.icon}</span>
+                <div className="flex-1">
+                  <div className="text-white text-sm font-semibold">
+                    {piece.slot}
+                  </div>
+                  <div className="text-blue-300 text-xs">{piece.stat}</div>
                 </div>
               </div>
             ))}
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
